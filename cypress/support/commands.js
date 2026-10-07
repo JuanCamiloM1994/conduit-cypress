@@ -34,14 +34,29 @@ Cypress.Commands.add('loginToApplication', () => {
                 "password": Cypress.env('userPassword')
             }
         }
-    }).then( response => {
+    }).then(response => {
         expect(response.status).to.equal(200)
         const accessToken = response.body.user.token
         cy.wrap(accessToken).as('accessToken')
         cy.visit('/', {
-            onBeforeLoad(win){
+            onBeforeLoad(win) {
                 win.localStorage.setItem('jwtToken', accessToken)
             }
         })
     })
- })
+})
+
+Cypress.Commands.add('uiLogin', () => {
+    cy.session('user', () => {
+        cy.visit('/')
+        cy.contains('Sign in').click()
+        cy.get('[placeholder="Email"]').type(Cypress.env('userEmail'))
+        cy.get('[placeholder="Password"]').type(Cypress.env('userPassword'))
+        cy.contains('button', 'Sign in').click()
+        cy.location('pathname').should('eq', '/')
+    },
+        {
+            cacheAcrossSpecs: true
+        })
+    cy.visit('/')
+})

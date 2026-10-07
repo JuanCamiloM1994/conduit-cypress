@@ -7,7 +7,7 @@ it('first test', () => {
     cy.uiLogin()
 })
 
-it('modify api response', { retries: 2 }, () => {
+it('modify api response', { retries: 2, tags: ['@smoketest', '@likes'] }, () => {
     cy.intercept('GET', '**/articles*', req => {
         req.continue(res => {
             res.body.articles[0].favoritesCount = 9999999
@@ -29,7 +29,7 @@ it('waiting for apis', () => {
     })
 })
 
-it('delete article', () => {
+it('delete article', {tags: '@smoketest'}, () => {
 
     const titleOfTheArticle = faker.person.fullName();
     cy.uiLogin()

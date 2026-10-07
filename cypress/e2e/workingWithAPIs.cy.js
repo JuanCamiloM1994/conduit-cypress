@@ -33,7 +33,7 @@ it('delete article', () => {
     
     cy.get('@accessToken').then(accessToken => {
         cy.request({
-            url: 'https://conduit-api.bondaracademy.com/api/articles/',
+            url: Cypress.env('apiURL') + '/articles/',
             method: 'POST',
             body: {
                 "article": {
@@ -60,7 +60,7 @@ it('delete article', () => {
 
 it('api testing', () => {
     cy.request({
-        url: 'https://conduit-api.bondaracademy.com/api/users/login',
+        url: Cypress.env('apiURL') + '/users/login',
         method: 'POST',
         body: {
             "user": {
@@ -73,7 +73,7 @@ it('api testing', () => {
         const accessToken = 'Token ' + response.body.user.token
 
         cy.request({
-            url: 'https://conduit-api.bondaracademy.com/api/articles/',
+            url: Cypress.env('apiURL') + '/articles/',
             method: 'POST',
             body: {
                 "article": {
@@ -90,7 +90,7 @@ it('api testing', () => {
         })
 
         cy.request({
-            url: 'https://conduit-api.bondaracademy.com/api/articles?limit=10&offset=0',
+            url: Cypress.env('apiURL') + '/articles?limit=10&offset=0',
             method: 'GET', 
             headers: {'Authorization': accessToken}
         }).then( response => {
@@ -99,7 +99,7 @@ it('api testing', () => {
             const slugID = response.body.articles[0].slug
 
             cy.request({
-                url: `https://conduit-api.bondaracademy.com/api/articles/${slugID}`,
+                url: Cypress.env('apiURL') + `/articles/${slugID}`,
                 method: 'DELETE',
                 headers: {'Authorization': accessToken}
             }).then(response => {
@@ -108,7 +108,7 @@ it('api testing', () => {
         })
 
         cy.request({
-            url: 'https://conduit-api.bondaracademy.com/api/articles?limit=10&offset=0',
+            url: Cypress.env('apiURL') + '/articles?limit=10&offset=0',
             method: 'GET', 
             headers: {'Authorization': accessToken}
         }).then(response => {

@@ -1,18 +1,23 @@
 const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
-    env: {
+  env: {
     username: 'cyuser@qq.com',
     password: 'cyuserpassword',
     apiURL: 'https://conduit-api.bondaracademy.com/api'
   },
-  
+
+  reporter: 'cypress-multi-reporters',
+  reporterOptions: {
+    configFile: 'reporter-config.json',
+  },
+
   e2e: {
     baseUrl: 'https://conduit.bondaracademy.com/',
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      require('cypress-mochawesome-reporter/plugin')(on);
       config.env.username = process.env.USER_NAME,
-      config.env.password = process.env.USER_PASSWORD
+        config.env.password = process.env.USER_PASSWORD
       return config;
     },
 

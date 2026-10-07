@@ -1,13 +1,24 @@
 {
   "name": "conduit-cypress",
   "scripts": {
+    "delete:reports": "rmdir /s /q cypress/reports/* || true",
+    "prereport": "npm run delete:reports",
+    "junit:merge": "npx junit-merge -d 'cypress/reports/junit' -o 'cypress/reports/junit/results.xml'",
+    
     "test": "echo \"Error: no test specified\" && exit 1",
     "cy_run_dev": "npx cypress open --env userEmail='cyuser555@qq.com',userPassword='cyuserpassword555'",
     "cy_run_qa": "npx cypress open --env userEmail='cyuser111@qq.com',userPassword='cyuserpassword111'",
-    "cy_run_prod": "npx cypress open --env userEmail=$USER_NAME,userPassword=$USER_PASSWORD"
+    "cy_run_prod": "npx cypress open --env userEmail=$USER_NAME,userPassword=$USER_PASSWORD",
+    "cy:run:all": "npm run prereport && npx cypress run || true && npm run junit:merge"
   },
   "devDependencies": {
     "@faker-js/faker": "^10.6.0",
-    "cypress": "^15.0.0"
+    "cypress": "^15.0.0",
+    "cypress-mochawesome-reporter": "^5.0.0",
+    "cypress-multi-reporters": "^2.0.5",
+    "mocha-junit-reporter": "^2.2.1"
+  },
+  "dependencies": {
+    "junit-merge": "^2.0.0"
   }
 }

@@ -1,7 +1,10 @@
 {
   "name": "conduit-cypress",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cy_run_dev": "npx cypress open --env userEmail='cyuser555@qq.com',userPassword='cyuserpassword555'",
+    "cy_run_qa": "npx cypress open --env userEmail='cyuser111@qq.com',userPassword='cyuserpassword111'",
+    "cy_run_prod": "npx cypress open --env userEmail=$USER_NAME,userPassword=$USER_PASSWORD"
   },
   "devDependencies": {
     "cypress": "^15.0.0"

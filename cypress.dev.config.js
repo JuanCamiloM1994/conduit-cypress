@@ -2,8 +2,8 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
     env: {
-    username: 'cyuser@qq.com',
-    password: 'cyuserpassword',
+    username: 'cyuser@dev.com',
+    password: 'cyuserpasswordDEV',
     apiURL: 'https://conduit-api.bondaracademy.com/api'
   },
   

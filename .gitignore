@@ -1,1 +1,5 @@
 node_modules
+
+# Cypress environment configuration file
+# it is commented only for this example
+#cypress.env.json
